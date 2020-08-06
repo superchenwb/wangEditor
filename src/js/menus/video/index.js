@@ -38,7 +38,7 @@ Video.prototype = {
                     title: '插入视频',
                     // 模板
                     tpl: `<div>
-                        <input id="${textValId}" type="text" class="block" placeholder="格式如：<iframe src=... ><\/iframe>"/>
+                        <input id="${textValId}" type="text" class="block" placeholder="请输入视频地址"/>
                         <div class="w-e-button-container">
                             <button id="${btnId}" class="right">插入</button>
                         </div>
@@ -54,10 +54,10 @@ Video.prototype = {
 
                                 // 测试用视频地址
                                 // <iframe height=498 width=510 src='http://player.youku.com/embed/XMjcwMzc3MzM3Mg==' frameborder=0 'allowfullscreen'></iframe>
-
                                 if (val) {
                                     // 插入视频
-                                    this._insert(val)
+                                    let data = "<iframe height=260 width=430 frameborder=0 allowfullscreen src="+val+"></iframe><br>";
+                                    this._insert(data)
                                 }
 
                                 // 返回 true，表示该事件执行完之后，panel 要关闭。否则 panel 不会关闭
