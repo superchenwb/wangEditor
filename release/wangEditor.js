@@ -4329,7 +4329,7 @@ UploadImg.prototype = {
 var editorId = 1;
 
 // isPreview
-var isPreview = true;
+var isPreview = false;
 
 // 构造函数
 function Editor(toolbarSelector, textSelector, isPreview) {
@@ -4347,6 +4347,7 @@ function Editor(toolbarSelector, textSelector, isPreview) {
     this.customConfig = {};
 
     // isPreview
+    this.isPreview = isPreview;
     isPreview = isPreview;
 }
 
