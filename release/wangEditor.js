@@ -4329,7 +4329,7 @@ UploadImg.prototype = {
 var editorId = 1;
 
 // isPreview
-var isPreview = false;
+var _isPreview = false;
 
 // 构造函数
 function Editor(toolbarSelector, textSelector, isPreview) {
@@ -4348,7 +4348,7 @@ function Editor(toolbarSelector, textSelector, isPreview) {
 
     // isPreview
     this.isPreview = isPreview;
-    isPreview = isPreview;
+    _isPreview = isPreview;
 }
 
 // 修改原型
@@ -4669,20 +4669,32 @@ var inlinecss = '.w-e-toolbar,.w-e-text-container,.w-e-menu-panel {  padding: 0;
 
 // 将 css 代码添加到 <style> 中
 var doc;
-if(isPreview) {
-    doc = window.document;
+if(_isPreview) {
+    var style = window.top.document.createElement('style');
+    style.type = 'text/css';
+    style.innerHTML = inlinecss;
+    window.top.document.getElementsByTagName('HEAD').item(0).appendChild(style);
+
+    if(window.parent.window.frames.length > 0) {
+        for(let i = 0; i < window.parent.window.frames.length; i++ ) {
+            var style = window.parent.window.frames[i].document.createElement('style');
+            style.type = 'text/css';
+            style.innerHTML = inlinecss;
+            window.parent.window.frames[i].getElementsByTagName('HEAD').item(0).appendChild(style);
+        }
+    }
 } else {
     if (window.parent.window.frames && window.parent.window.frames[0]) {
         doc = window.parent.window.frames[0].document;
     } else {
         doc = window.top.document;
     }
+    var style = doc.createElement('style');
+    style.type = 'text/css';
+    style.innerHTML = inlinecss;
+    doc.getElementsByTagName('HEAD').item(0).appendChild(style);
 }
-
-var style = doc.createElement('style');
-style.type = 'text/css';
-style.innerHTML = inlinecss;
-doc.getElementsByTagName('HEAD').item(0).appendChild(style);
+console.log(Editor);
 
 // 返回
 var index = window.wangEditor || Editor;
