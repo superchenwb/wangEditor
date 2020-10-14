@@ -2586,6 +2586,7 @@ Video.prototype = {
         // 创建 id
         var textValId = getRandom('text-val');
         var btnId = getRandom('btn');
+        var videoWidthId = getRandom('video-width');
 
         // 创建 panel
         var panel = new Panel(this, {
@@ -2595,7 +2596,14 @@ Video.prototype = {
                 // 标题
                 title: '插入视频',
                 // 模板
-                tpl: '<div>\n                        <input id="' + textValId + '" type="text" class="block" placeholder="\u683C\u5F0F\u5982\uFF1A<iframe src=... ></iframe>"/>\n                        <div class="w-e-button-container">\n                            <button id="' + btnId + '" class="right">\u63D2\u5165</button>\n                        </div>\n                    </div>',
+                // tpl: '<div>\n                        <input id="' + textValId + '" type="text" class="block" placeholder="\u683C\u5F0F\u5982\uFF1A<iframe src=... ></iframe>"/>\n                        <div class="w-e-button-container">\n                            <button id="' + btnId + '" class="right">\u63D2\u5165</button>\n                        </div>\n                    </div>',
+                tpl: `<div>
+                        <input id="${textValId}" type="text" class="block" placeholder="请输入视频地址"/>
+                        <input id="${videoWidthId}" type="number" class="block" placeholder="请输入播放器宽度，默认500"/>
+                        <div class="w-e-button-container">
+                            <button id="${btnId}" class="right">插入</button>
+                        </div>
+                </div>`,
                 // 事件绑定
                 events: [{
                     selector: '#' + btnId,
@@ -2604,12 +2612,22 @@ Video.prototype = {
                         var $text = $('#' + textValId);
                         var val = $text.val().trim();
 
+                        var $vw = $('#' + videoWidthId);
+                        var vwVal = $vw.val().trim();
+                        vwVal = vwVal > 0 ? vwVal : 500;
+
                         // 测试用视频地址
                         // <iframe height=498 width=510 src='http://player.youku.com/embed/XMjcwMzc3MzM3Mg==' frameborder=0 'allowfullscreen'></iframe>
 
+                        // if (val) {
+                        //     // 插入视频
+                        //     _this._insert(val);
+                        // }
+
                         if (val) {
                             // 插入视频
-                            _this._insert(val);
+                            let data = "<iframe height=600 width="+ vwVal +" frameborder=0 allowfullscreen src="+val+"></iframe><br>";
+                            this._insert(data)
                         }
 
                         // 返回 true，表示该事件执行完之后，panel 要关闭。否则 panel 不会关闭
