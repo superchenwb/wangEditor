@@ -4698,7 +4698,7 @@ var inlinecss = '.w-e-toolbar,.w-e-text-container,.w-e-menu-panel {  padding: 0;
 //             var style = window.parent.window.frames[i].document.createElement('style');
 //             style.type = 'text/css';
 //             style.innerHTML = inlinecss;
-//             window.parent.window.frames[i].getElementsByTagName('HEAD').item(0).appendChild(style);
+//             window.parent.window.frames[i].document.getElementsByTagName('HEAD').item(0).appendChild(style);
 //         }
 //     }
 // } else {
@@ -4723,7 +4723,7 @@ if( len > 0) {
         var style = window.parent.window.frames[i].document.createElement('style');
         style.type = 'text/css';
         style.innerHTML = inlinecss;
-        window.parent.window.frames[i].getElementsByTagName('HEAD').item(0).appendChild(style);
+        window.parent.window.frames[i].document.getElementsByTagName('HEAD').item(0).appendChild(style);
     }
 }
 console.log(Editor);
