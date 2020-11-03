@@ -2627,7 +2627,7 @@ Video.prototype = {
                         if (val) {
                             // 插入视频
                             let data = "<iframe height=600 width="+ vwVal +" frameborder=0 allowfullscreen src="+val+"></iframe><br>";
-                            this._insert(data)
+                            _this._insert(data)
                         }
 
                         // 返回 true，表示该事件执行完之后，panel 要关闭。否则 panel 不会关闭
